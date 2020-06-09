@@ -12,9 +12,9 @@ class App extends React.Component {
   getAverageGrade() {
     const allGrades = this.state.grades;
     let added = 0;
-    allGrades.map(grade => {
-      added += allGrades[grade].grade;
-    });
+    for (let i = 0; i < allGrades.length; i++) {
+      added += allGrades[i].grade;
+    }
     const average = Math.ceil(added / allGrades.length);
     return average;
   }
@@ -30,7 +30,7 @@ class App extends React.Component {
 
     return (
       <div>
-        <PageTitle text="Student Grade Table"/>
+        <PageTitle averageGrade={this.getAverageGrade()} text="Student Grade Table"/>
         <GradeTable grades={this.state.grades} />
       </div>
     );
