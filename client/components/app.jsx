@@ -29,9 +29,13 @@ class App extends React.Component {
   render() {
 
     return (
-      <div>
-        <PageTitle averageGrade={this.getAverageGrade()} text="Student Grade Table"/>
-        <GradeTable grades={this.state.grades} />
+      <div className="container">
+        <div className="row">
+          <div className="col pt-5">
+            <PageTitle averageGrade={this.getAverageGrade()} text="Student Grade Table" />
+            <GradeTable grades={this.state.grades} />
+          </div>
+        </div>
       </div>
     );
   }
