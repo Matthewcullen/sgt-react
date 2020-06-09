@@ -6,6 +6,17 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { grades: [] };
+    this.getAverageGrade = this.getAverageGrade.bind(this);
+  }
+
+  getAverageGrade() {
+    const allGrades = this.state.grades;
+    let added = 0;
+    allGrades.map(grade => {
+      added += allGrades[grade].grade;
+    });
+    const average = Math.ceil(added / allGrades.length);
+    return average;
   }
 
   componentDidMount() {
