@@ -1,12 +1,14 @@
 import React from 'react';
 import GradeTable from './grade-table';
 import PageTitle from './header';
+import GradeForm from './grade-form';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { grades: [] };
     this.getAverageGrade = this.getAverageGrade.bind(this);
+    this.addGrade = this.getAverageGrade.bind(this);
   }
 
   getAverageGrade() {
@@ -15,8 +17,14 @@ class App extends React.Component {
     for (let i = 0; i < allGrades.length; i++) {
       added += allGrades[i].grade;
     }
-    const average = Math.ceil(added / allGrades.length);
-    return average;
+    let average = null;
+    if (!(allGrades.length)) {
+      average = 'NA';
+      return average;
+    } else {
+      average = Math.ceil(added / allGrades.length);
+      return average;
+    }
   }
 
   componentDidMount() {
@@ -26,10 +34,10 @@ class App extends React.Component {
       .catch(err => console.error(err.message));
   }
 
-  addGrade(grade) {
+  addGrade(newGrade) {
     fetch('api/grades', {
       method: 'POST',
-      body: JSON.stringify(grade),
+      body: JSON.stringify(newGrade),
       headers: {
         'Content-Type': 'application/json'
       }
@@ -37,7 +45,7 @@ class App extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.setState({
-          grades: this.state.grades.concat(grade)
+          grades: this.state.grades.concat(data)
         });
       })
       .catch(err => console.error(err.message));
@@ -51,6 +59,7 @@ class App extends React.Component {
           <div className="col pt-5">
             <PageTitle averageGrade={this.getAverageGrade()} text="Student Grade Table" />
             <GradeTable grades={this.state.grades} />
+            <GradeForm onsubmit={this.addGrade()} />
           </div>
         </div>
       </div>
