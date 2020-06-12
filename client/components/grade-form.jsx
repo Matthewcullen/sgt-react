@@ -21,20 +21,21 @@ class GradeForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+
     this.props.onSubmit({
       name: this.state.name,
       course: this.state.course,
       grade: Number.parseInt(this.state.grade)
     });
-    this.setState({
-      name: '',
-      course: '',
-      grade: ''
-    });
+    this.resetForm();
   }
 
   handleCancel(event) {
     event.preventDefault();
+    this.resetForm();
+  }
+
+  resetForm() {
     this.setState({
       name: '',
       course: '',
@@ -45,7 +46,7 @@ class GradeForm extends React.Component {
   render() {
     return (
       <div className="form-container col-xl-3 col-xs-12 col-sm-10 col-lg-9 col-md-9">
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <h2>Add Grade</h2>
           <div className="name-container">
             <i className="fas fa-user fa-2x" htmlFor="name"></i>
@@ -81,7 +82,7 @@ class GradeForm extends React.Component {
               onChange={this.handleChange} />
           </div>
           <div className="button-container no-gutters">
-            <button type="submit" onClick={this.handleSubmit} className="btn btn-success mr-3">Add</button>
+            <button type="submit" className="btn btn-success mr-3">Add</button>
             <button type="reset" onClick={this.handleCancel} className="btn btn-outline-dark">Cancel</button>
           </div>
         </form>

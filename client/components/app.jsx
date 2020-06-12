@@ -8,7 +8,7 @@ class App extends React.Component {
     super(props);
     this.state = { grades: [] };
     this.getAverageGrade = this.getAverageGrade.bind(this);
-    this.addGrade = this.getAverageGrade.bind(this);
+    this.addGrade = this.addGrade.bind(this);
   }
 
   getAverageGrade() {
@@ -28,7 +28,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch('api/grades')
+    fetch('/api/grades')
       .then(res => res.json())
       .then(data => this.setState({ grades: data }))
       .catch(err => console.error(err.message));
@@ -59,7 +59,7 @@ class App extends React.Component {
           <div className="col pt-5">
             <PageTitle averageGrade={this.getAverageGrade()} text="Student Grade Table" />
             <GradeTable grades={this.state.grades} />
-            <GradeForm onsubmit={this.addGrade()} />
+            <GradeForm onSubmit={this.addGrade} />
           </div>
         </div>
       </div>
