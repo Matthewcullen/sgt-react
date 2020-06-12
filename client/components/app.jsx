@@ -51,6 +51,20 @@ class App extends React.Component {
       .catch(err => console.error(err.message));
   }
 
+  deleteGrade(gradeId) {
+    fetch(`api/grades/${gradeId}`, {
+      method: 'DELETE'
+    })
+      .then(res => {
+        this.setState(state => {
+          return { grades: state.grades.filter(grade => Number(grade.id) !== gradeId) };
+        });
+      })
+      .catch(err => {
+        console.error(err.message);
+      });
+  }
+
   render() {
 
     return (
