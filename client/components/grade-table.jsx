@@ -8,6 +8,9 @@ function Grade(props) {
       <td>{props.grade.name}</td>
       <td>{props.grade.course}</td>
       <td>{props.grade.grade}</td>
+      <td>
+        <button onClick={() => props.deleteGrade(grade.id)} className="btn btn-danger">DELETE</button>
+      </td>
     </tr>
   );
 }
@@ -20,6 +23,7 @@ function GradeTable(props) {
           <th className="col">Name</th>
           <th className="col">Course</th>
           <th className="col">Grade</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -27,6 +31,7 @@ function GradeTable(props) {
           props.grades.map(grade => {
             return (
               <Grade
+                deleteGrade={props.deleteGrade}
                 key={grade.id}
                 grade={grade}
               />
